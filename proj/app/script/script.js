@@ -1,32 +1,17 @@
 $(document).ready(function () {
-
-  var startX = 0,
-    startY = 0,
-    x = 0,
-    y = 0;
-
-  var element = $('#drag');
-
-  element.on('mousedown', function (e) {
-    startX = event.pageX - x;
-    startY = event.pageY - y;
-
-    $(document).on('mousemove', mousemove);
-    $(document).on('mouseup', mouseup);
-  });
-
-  function mousemove(event) {
-    y = event.pageY - startY;
-    x = event.pageX - startX;
-    element.css({
-      top: y + 'px',
-      left: x + 'px'
-    });
-  }
-
-  function mouseup() {
-    $(document).off('mousemove', mousemove);
-    $(document).off('mouseup', mouseup);
-  }
-
+	var heightY = $('#drag').height() / 2;
+	var widthX = $('#drag').width() / 2;
+	$('#drag').on('mousedown', function () {
+		$('#drag').on('mousemove', function (e) {
+			var posX = e.pageX - widthX;
+			var posY = e.pageY - heightY;
+			$('#drag').offset({
+				top: posY
+				, left: posX
+			})
+		})
+	});
+	$(document).on('mouseup', function () {
+		$('#drag').off('mousemove');
+	});
 });
